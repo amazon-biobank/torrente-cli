@@ -51,7 +51,6 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "bittorrent-protocol": "^4.1.6",
     "body-parser": "^1.19.0",
     "crypto-js": "^4.0.0",
     "elliptic": "^6.5.4",
@@ -60,6 +59,7 @@
     "jsrsasign-util": "^1.0.5",
     "net": "^1.0.2",
     "uuid": "^8.3.2",
+    "webtorrent": "^2.0.11",
     "ws": "^7.4.5"
   }
 }
