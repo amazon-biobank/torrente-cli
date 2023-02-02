@@ -8,15 +8,25 @@ import { ILogoutMessageData } from '../models/messages/LogoutMessage';
 import { IMessagesModel, MessagesTypesEnum } from '../models/messages/MessageModel';
 import { IRedeemValuesMessageData } from '../models/messages/RedeemValuesMessage';
 import { IRefreshWalletMessageData } from '../models/messages/RefreshWalletMessage';
+import { NotificationReader } from '../models/notifications/NotificationReader';
+import { TorrenteConsole } from './Console';
 
 export class TorrenteInterface {
     torrenteSocket: WebSocket;
     connectedResolver: CallableFunction;
 
+    private static instance: TorrenteInterface;
+
     private endResolver: (value?: unknown) => void = () => {};
 
     public constructor() { 
         this.connectedResolver = () => {};
+    }
+
+    public static getInstance = (): TorrenteInterface => {
+        if (!TorrenteInterface.instance)
+            TorrenteInterface.instance = new TorrenteInterface;
+        return TorrenteInterface.instance;
     }
 
     private sleep = async(ms: number): Promise<null> => {
@@ -38,7 +48,8 @@ export class TorrenteInterface {
     }
 
     public initConnection = async(): Promise<void> => {
-        console.log(`[INFO] Connecting to payfluxo at ${TORRENTE_NOTIFICATION_PORT}`);
+        const torrenteConsole = TorrenteConsole.getInstance();
+        torrenteConsole.log(`Connecting to payfluxo at ${TORRENTE_NOTIFICATION_PORT}`);
         this.connect();
         await this.waitUntilOpen();
     }
@@ -123,12 +134,18 @@ export class TorrenteInterface {
     }
 
     private onOpen = (event) => {
-        console.log("\n[INFO] Connected to Payfluxo");
         this.connectedResolver();
     }
 
     private onMessage = (event: WebSocket.MessageEvent) => {
-        console.log(`[DEBUG] ${event.data}`)
+        const torrenteConsole = TorrenteConsole.getInstance();
+        torrenteConsole.debug(`${event.data}`)
+        try {
+            NotificationReader.readNotification(event.data.toString());
+        }
+        catch (e: any){
+            torrenteConsole.error(e.message);
+        }
     }
 
     private onClose = (event) => {

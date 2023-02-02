@@ -10,5 +10,5 @@ export const printHelloTag = () => {
     console.log("\x1b[32m", TorrenteLogo);
     console.log("===========================================");
     console.log("Created by Amazon Biobank Project");
-    console.log("===========================================");
+    console.log("===========================================\x1b[0m");
 }

@@ -1,4 +1,9 @@
 import { TorrenteConsole } from "./view/Console";
+import { TorrenteInterface } from "./view/TorrenteInterface";
 
-const console = new TorrenteConsole();
-console.startConsole();
+
+const console = TorrenteConsole.getInstance();
+const torrenteInterface = TorrenteInterface.getInstance();
+torrenteInterface.initConnection().then(() => {
+	console.startConsole();
+})
