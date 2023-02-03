@@ -4,11 +4,16 @@ import { TorrenteInterface } from "../TorrenteInterface"
 
 export class LogoutCommand {
     public static activate = () => {
-        const tInterface = TorrenteInterface.getInstance();
-        tInterface.logout();
         const sessionData = SessionData.getInstance();
-        sessionData.flushIdentity();
-        const tConsole = TorrenteConsole.getInstance();
-        tConsole.sucess('Logged off from authenticated session');
+        if (sessionData.getIsAuthenticated())
+        {
+            const tInterface = TorrenteInterface.getInstance();
+            tInterface.logout();
+            sessionData.flushIdentity();
+            const tConsole = TorrenteConsole.getInstance();
+            tConsole.sucess('Logged off from authenticated session');
+            return;
+        }
+        throw Error("You're not authenticated to log out");
     }
 }

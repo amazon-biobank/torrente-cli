@@ -1,15 +1,15 @@
 import { SessionData } from "../../models/SessionData";
 import { TorrenteInterface } from "../TorrenteInterface";
 
-export class BalanceCommand {
+export class RedeemCommand {
     public static activate = () => {
         const userData = SessionData.getInstance();
         if (userData.getIsAuthenticated())
         {
             const tInterface = TorrenteInterface.getInstance();
-            tInterface.refreshWallet();
+            tInterface.redeem();
             return;
         }
-        throw Error("You're not authenticated to check your balance");
+        throw Error("You're not authenticated to redeem tokens");
     }
 }

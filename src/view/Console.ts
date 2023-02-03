@@ -5,6 +5,7 @@ import { printHelloTag } from "./HelloTag";
 
 import { LogoutCommand } from "./commands/LogoutCommand";
 import { BalanceCommand } from "./commands/BalanceCommand";
+import { RedeemCommand } from "./commands/RedeemCommand";
 
 export class TorrenteConsole {
     private commandsInterface: Interface;
@@ -38,22 +39,21 @@ export class TorrenteConsole {
                     await LogoutCommand.activate();
                     break;
                 case 'status':
-                    // this.torrenteInterface.downloadIntention({
-                    //     magneticLink: commandWords[2],
-                    //     piecesNumber: parseInt(commandWords[1]),
-                    //     torrentId: commandWords[2]
-                    // })
+                    // Torrent related
                     break;
                 case 'balance':
                     await BalanceCommand.activate();
                     break;
                 case 'redeem':
-                    // this.torrenteInterface.redeem();
+                    await RedeemCommand.activate();
                     break;
                 case 'add':
-                    // this.torrenteInterface.refreshWallet();
+                    // Torrent related
                     break;
                 case 'create':
+                    // Torrent related
+                    break;
+                case 'help':
                     break;
                 case '':
                     break;
