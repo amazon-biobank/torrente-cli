@@ -1,12 +1,12 @@
 import { AuthenticationHandler } from "../../handlers/AuthenticationHandler";
+import { BalanceHandler } from "../../handlers/BalanceHandler";
 import { FailedAuthHandler } from "../../handlers/FailedAuthHandler";
 import { NATHandler } from "../../handlers/NATHandler";
 import { PayfluxoConnectionHandler } from "../../handlers/PayfluxoConnectionHandler";
-import { IAuthenticationFailedNotifyData } from "./AuthenticationFailedNotification";
-import { AuthenticationNotification, IAuthenticationNotifyData } from "./AuthenticationNotification";
+import { IAuthenticationNotifyData } from "./AuthenticationNotification";
 import { IConnectionNotifyData } from "./ConnectionNotification";
 import { INATNotifyData } from "./NATNotification";
-import { INotificationModel } from "./NotificationModel";
+import { IWalletRefreshData } from "./WalletNotification";
 
 export class NotificationReader{
     private static validateNotification = (notificationJson: object) => {
@@ -39,7 +39,10 @@ export class NotificationReader{
                 const connData: IConnectionNotifyData = notificationJson['data'];
                 PayfluxoConnectionHandler.handle(connData);
                 break;
-
+            case 'WalletNotification':
+                const balanceData: IWalletRefreshData = notificationJson['data'];
+                BalanceHandler.handle(balanceData);
+                break;
             default:
                 throw Error(`Unknown notification type: ${notificationJson['type']}`);
         }

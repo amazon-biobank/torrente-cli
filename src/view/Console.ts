@@ -4,6 +4,7 @@ import { AuthenticationCommand } from "./commands/AuthenticateCommand";
 import { printHelloTag } from "./HelloTag";
 
 import { LogoutCommand } from "./commands/LogoutCommand";
+import { BalanceCommand } from "./commands/BalanceCommand";
 
 export class TorrenteConsole {
     private commandsInterface: Interface;
@@ -44,21 +45,15 @@ export class TorrenteConsole {
                     // })
                     break;
                 case 'balance':
-                    const blocksDownloaded = parseInt(commandWords[1])
-                    const fileSize = parseInt(commandWords[4])
-                    for (let index = 0; index < blocksDownloaded; index++) {
-                        // this.torrenteInterface.downloadBlock(
-                        //     commandWords[2],
-                        //     commandWords[3],
-                        //     fileSize
-                        //     )
-                    }
+                    await BalanceCommand.activate();
                     break;
                 case 'redeem':
                     // this.torrenteInterface.redeem();
                     break;
                 case 'add':
                     // this.torrenteInterface.refreshWallet();
+                    break;
+                case 'create':
                     break;
                 case '':
                     break;
@@ -81,7 +76,7 @@ export class TorrenteConsole {
     }
 
     public warn = (message: string) => {
-        console.log(chalk.yellow(`[x] ${message}`));
+        console.log(chalk.yellow(`[!] ${message}`));
     }
 
     public sucess = (message: string) => {
@@ -89,7 +84,11 @@ export class TorrenteConsole {
     }
 
     public debug = (message: string) => {
-        console.log(chalk.blue(`[+] ${message}`));
+        console.log(chalk.blue(`[?] ${message}`));
+    }
+
+    public table = (structData: Object[]) => {
+        console.table(structData);
     }
 
     public ask = async (prompt: string): Promise<string> => {
