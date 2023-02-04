@@ -9,6 +9,8 @@ type PaymentControl = {
     [wireId: string]: BT.Wire;
 }
 
+const TORRENT_PORT = 25000
+
 export class TorrentController {
     private static instance: TorrentController;
     private static client: WT.Instance;
@@ -16,7 +18,9 @@ export class TorrentController {
     private static paymentControl: PaymentControl;
 
     public constructor() {
-        TorrentController.client = new WebTorrent();
+        TorrentController.client = new WebTorrent(
+            { torrentPort: TORRENT_PORT }
+        );
         TorrentController.paymentControl = {};
     }
 
