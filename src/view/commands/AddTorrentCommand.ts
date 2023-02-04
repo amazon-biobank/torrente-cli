@@ -1,9 +1,9 @@
 import { IDownloadIntentionMessageData } from "../../models/messages/DownloadIntentionMessage";
 import { SessionData } from "../../models/SessionData";
 import { TorrentController } from "../../torrent/TorrentController";
+import { TorrentHandler } from "../../torrent/TorrentHandlers";
 import { TorrenteConsole } from "../Console";
-import { TorrenteInterface } from "../TorrenteInterface"
-import * as WT from 'bittorrent-protocol'
+import { TorrenteInterface } from "../TorrenteInterface";
 
 
 export class AddTorrentCommand {
@@ -31,31 +31,11 @@ export class AddTorrentCommand {
                 torrentId: torrent.infoHash
             }
             tInterface.downloadIntention(downloadData);
-            torrent.on('wire', (wire: WT.Wire, addr: string) => {
-                tConsole.debug(`Connected to peer with address ${addr}`);
-                const ip = addr.substring(0, addr.lastIndexOf(':'));
-                tController.addWire(magneticLink, addr, wire);
-                wire.on('download', (bytes: number) => {
-                    const blockNumbers = Math.ceil(bytes / 16384);
-                    tConsole.debug(`Downloaded ${bytes} bytes`);
-                    for (let index = 0; index < blockNumbers; index++) {
-                        tInterface.downloadBlock(
-                            ip,
-                            magneticLink,
-                            torrent.pieces.length
-                        )
-                    }
-                })
-                wire.on('upload', (bytes: number) => {
-                    const blockNumbers = Math.ceil(bytes / 16384);
-                    for (let index = 0; index < blockNumbers; index++) {
-                        userData.incrementDebt(ip);
-                        if (userData.isPeerIndebted(ip)){
-                            wire.choke();
-                        }
-                    }
-                })
-            })
+            const onWireAuthenticated = TorrentHandler.onWireAuthenticated(torrent);
+            torrent.on('wire', onWireAuthenticated);
+        }
+        else{
+            torrent.on('wire', TorrentHandler.onWire);
         }
 
     }
