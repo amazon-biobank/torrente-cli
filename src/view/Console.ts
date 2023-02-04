@@ -10,6 +10,7 @@ import { AddTorrentCommand } from "./commands/AddTorrentCommand";
 import { CreateTorrentCommand } from "./commands/CreateTorrentCommand";
 import { StatsCommand } from "./commands/StatsCommand";
 import { InfoCommand } from "./commands/InfoCommand";
+import { HelpCommand } from "./commands/HelpCommand";
 
 export class TorrenteConsole {
     private commandsInterface: Interface;
@@ -61,6 +62,7 @@ export class TorrenteConsole {
                     await InfoCommand.activate();
                     break;
                 case 'help':
+                    await HelpCommand.activate();
                     break;
                 case '':
                     break;
