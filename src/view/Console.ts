@@ -6,6 +6,9 @@ import { printHelloTag } from "./HelloTag";
 import { LogoutCommand } from "./commands/LogoutCommand";
 import { BalanceCommand } from "./commands/BalanceCommand";
 import { RedeemCommand } from "./commands/RedeemCommand";
+import { AddTorrentCommand } from "./commands/AddTorrentCommand";
+import { CreateTorrentCommand } from "./commands/CreateTorrentCommand";
+import { StatsCommand } from "./commands/StatsCommand";
 
 export class TorrenteConsole {
     private commandsInterface: Interface;
@@ -39,7 +42,7 @@ export class TorrenteConsole {
                     await LogoutCommand.activate();
                     break;
                 case 'status':
-                    // Torrent related
+                    await StatsCommand.activate();
                     break;
                 case 'balance':
                     await BalanceCommand.activate();
@@ -48,10 +51,10 @@ export class TorrenteConsole {
                     await RedeemCommand.activate();
                     break;
                 case 'add':
-                    // Torrent related
+                    await AddTorrentCommand.activate();
                     break;
                 case 'create':
-                    // Torrent related
+                    await CreateTorrentCommand.activate();
                     break;
                 case 'help':
                     break;

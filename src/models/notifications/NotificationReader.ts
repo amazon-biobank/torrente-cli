@@ -5,7 +5,9 @@ import { NATHandler } from "../../handlers/NATHandler";
 import { PayfluxoConnectionHandler } from "../../handlers/PayfluxoConnectionHandler";
 import { IAuthenticationNotifyData } from "./AuthenticationNotification";
 import { IConnectionNotifyData } from "./ConnectionNotification";
+import { IIntentionDeclaredNotifyData } from "./IntentionDeclaredNotification";
 import { INATNotifyData } from "./NATNotification";
+import { IPaymentNotifyData } from "./PaymentNotification";
 import { IWalletRefreshData } from "./WalletNotification";
 
 export class NotificationReader{
@@ -42,6 +44,14 @@ export class NotificationReader{
             case 'WalletNotification':
                 const balanceData: IWalletRefreshData = notificationJson['data'];
                 BalanceHandler.handle(balanceData);
+                break;
+            case 'IntentionDeclaredNotification':
+                const declaredData: IIntentionDeclaredNotifyData = notificationJson['data'];
+                // declaredData.
+                break;
+            case 'PaymentNotification':
+                const paymentData: IPaymentNotifyData = notificationJson['data'];
+                
                 break;
             default:
                 throw Error(`Unknown notification type: ${notificationJson['type']}`);
