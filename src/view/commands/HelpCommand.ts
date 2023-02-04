@@ -12,7 +12,8 @@ export class HelpCommand {
             { command: 'balance', description: 'Checks wallet content (Authenticated only)' },
             { command: 'redeem', description: 'Redeems micropayments tokens against smart contract (Authenticated only)' },
             { command: 'add', description: 'Add torrent to the download list' },
-            { command: 'create', description: 'Create new torrent' }
+            { command: 'create', description: 'Create new torrent' },
+            { command: 'debug', description: 'Toggles debug logs'}
         ];
         return data;
     }

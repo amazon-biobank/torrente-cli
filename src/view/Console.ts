@@ -16,12 +16,15 @@ export class TorrenteConsole {
     private commandsInterface: Interface;
     private static instance: TorrenteConsole;
 
+    private static debugMode: boolean;
+
     public constructor() {
         this.commandsInterface = createInterface({
             input: process.stdin,
             output: process.stdout,
             terminal: false
         })
+        TorrenteConsole.debugMode = false;
     }
 
     public static getInstance = (): TorrenteConsole => {
@@ -64,6 +67,9 @@ export class TorrenteConsole {
                 case 'help':
                     await HelpCommand.activate();
                     break;
+                case 'debug':
+                    TorrenteConsole.debugMode = !TorrenteConsole.debugMode;
+                    break;
                 case '':
                     break;
                 default:
@@ -93,7 +99,8 @@ export class TorrenteConsole {
     }
 
     public debug = (message: string) => {
-        console.log(chalk.blue(`[?] ${message}`));
+        if(TorrenteConsole.debugMode)
+            console.log(chalk.blue(`[?] ${message}`));
     }
 
     public table = (structData: Object[]) => {

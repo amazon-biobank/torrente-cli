@@ -17,7 +17,11 @@ export class InfoCommand {
 
     private static formatProgress = (progress: number): string => {
         const progressString = (progress * 100).toString();
-        const progressFormatted = progressString.slice(0, (progressString.indexOf(".")) + 2);
+        var progressFormatted;
+        if (progressString !== '100')
+            progressFormatted = progressString.slice(0, (progressString.indexOf(".")) + 2);
+        else
+            progressFormatted = progressString;
         return `${progressFormatted}%`;
     }
 
