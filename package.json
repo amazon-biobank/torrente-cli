@@ -1,0 +1,70 @@
+{
+  "name": "torrente-cli",
+  "version": "1.0.0",
+  "description": "Torrente CLI for cloud and server appliances",
+  "main": "index.js",
+  "bin": "dist/app.js",
+  "type": "module",
+  "pkg": {
+    "assets": [
+      "node_modules/**/*",
+      "dist/**/*"
+    ],
+    "targets": [
+      "node14-linux-x64",
+      "node14-win-x64"
+    ]
+  },
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "start:dev": "nodemon src/app.ts",
+    "test": "jest",
+    "build-exe": "tsc && pkg . --out-path ./pkg/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/90felipe09/torrente-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/90felipe09/torrente-cli/issues"
+  },
+  "homepage": "https://github.com/90felipe09/torrente-cli#readme",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/body-parser": "^1.19.0",
+    "@types/create-torrent": "^5.0.0",
+    "@types/crypto-js": "^4.0.1",
+    "@types/elliptic": "^6.4.12",
+    "@types/express": "^4.16.1",
+    "@types/jest": "^26.0.22",
+    "@types/jsrsasign": "^8.0.13",
+    "@types/node": "^16.3.3",
+    "@types/webtorrent": "^0.109.3",
+    "@types/ws": "^7.4.4",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "pkg": "^5.5.2",
+    "ts-jest": "^26.5.5",
+    "ts-node": "^10.9.1",
+    "tslint": "^5.12.1",
+    "typescript": "4.2.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "chalk": "^5.2.0",
+    "create-torrent": "^6.0.9",
+    "crypto-js": "^4.0.0",
+    "elliptic": "^6.5.4",
+    "express": "^4.16.4",
+    "jsrsasign": "^10.4.0",
+    "jsrsasign-util": "^1.0.5",
+    "net": "^1.0.2",
+    "uuid": "^8.3.2",
+    "webtorrent": "^2.0.11",
+    "webtorrent-hybrid": "^5.0.2",
+    "ws": "^7.4.5"
+  }
+}
