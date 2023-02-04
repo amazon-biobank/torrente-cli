@@ -16,6 +16,13 @@ export class AddTorrentCommand {
 
         const userData = SessionData.getInstance();
 
+        torrent.on('done', () => {
+            tConsole.sucess(`${torrent.name} download completed.`)
+            torrent.files.forEach(file => {
+                tConsole.log(`[${torrent.name}]: ${file.name} stored at ${file.path}`);
+            })
+        })
+
         if (userData.getIsAuthenticated()){
             const tInterface = TorrenteInterface.getInstance();
             const downloadData: IDownloadIntentionMessageData = {
