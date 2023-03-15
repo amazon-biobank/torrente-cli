@@ -11,6 +11,8 @@ import { CreateTorrentCommand } from "./commands/CreateTorrentCommand";
 import { StatsCommand } from "./commands/StatsCommand";
 import { InfoCommand } from "./commands/InfoCommand";
 import { HelpCommand } from "./commands/HelpCommand";
+import { EncryptCommand } from "./commands/EncryptCommand";
+import { DecryptCommand } from "./commands/DecryptCommand";
 
 export class TorrenteConsole {
     private commandsInterface: Interface;
@@ -66,6 +68,12 @@ export class TorrenteConsole {
                     break;
                 case 'help':
                     await HelpCommand.activate();
+                    break;
+                case 'encrypt':
+                    await EncryptCommand.activate();
+                    break;
+                case 'decrypt':
+                    await DecryptCommand.activate();
                     break;
                 case 'debug':
                     TorrenteConsole.debugMode = !TorrenteConsole.debugMode;
